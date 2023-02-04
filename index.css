@@ -1,0 +1,161 @@
+:root {
+    --white-color: white;
+    --dark-color: rgb(32 33 36);
+
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    color: var(--white-color);
+    background: var(--dark-color);
+
+
+}
+
+.container {
+    margin: 0 auto;
+}
+
+.navigation .container {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 7px 29px 0px;
+    padding: 0 20px;
+    font-size: 1.2rem;
+}
+
+.navigation h1{
+    font-weight: 400;
+}
+.main .container {
+    position: absolute;
+    top: 64px;
+    display: flex;
+    bottom: 0;
+    width: 100%;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 400px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+
+}
+
+.list1 {
+    position: relative;
+    border-radius: 0 50px 50px 0;
+    padding: 10px 20px;
+    margin-bottom: 5px;
+}
+
+.list1 p {
+    font-size: .9rem;
+    opacity: .8;
+    
+}
+
+.list .active {
+    background-color: rgb(87, 86, 86);
+
+}
+
+.add {
+    align-self: center;
+    color: white;
+    background-color: rgb(78, 77, 77);
+    font-size: 1.2rem;
+    padding: 10px;
+    width: 40%;
+    height: 50px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.itemlist{
+    width: 100%;
+    padding: 30px;
+    font-size: 1.5rem;
+}
+
+#card h2{
+    font-size: 1.1rem;
+    opacity: .8;
+    font-weight: 100;
+    
+}
+.adds{
+    display: flex;
+    margin-top: 10px;
+    border-bottom:1px solid white;
+    align-items: flex-end;
+    padding: 10px;
+}
+.adds p {
+    margin-right: 10px;
+    font-size: 2rem;
+}
+#submitInput{
+    width: 100%;
+    background: transparent;
+    border: none;
+    font-size: 1.8rem;
+    color: white;
+    outline: none;
+}
+
+.items,
+.list{
+    display: flex;
+    justify-content: space-between;
+}
+
+.list1 .remove{
+    position: absolute;
+    right: 40px;
+    top: 18px;
+}
+.remove{
+    cursor: pointer;
+
+    padding: 5px;
+    background: transparent;
+    border: none;
+    color: aliceblue;
+    font-size: 1.2rem;
+}
+
+.list2 #submitInput{
+   /* border-bottom: 1px solid rgba(255, 255, 255, 0.651); */
+   margin: 10px;
+}
+
+.items{
+    padding: 10px;
+}
+
+.list2{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.651);
+}
