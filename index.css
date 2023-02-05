@@ -24,6 +24,7 @@ body {
 }
 
 .container {
+    max-width: 2400px;
     margin: 0 auto;
 }
 
@@ -51,7 +52,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 400px;
+    min-width: 290px;
 }
 
 .list {
@@ -117,7 +118,8 @@ body {
     margin-right: 10px;
     font-size: 2rem;
 }
-#submitInput{
+#submitInput,
+.lis{
     width: 100%;
     background: transparent;
     border: none;
@@ -156,6 +158,23 @@ body {
     padding: 10px;
 }
 
-.list2{
+.items{
     border-bottom: 1px solid rgba(255, 255, 255, 0.651);
 }
+
+
+.cre {
+    margin-right: 20px;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    background: #000000;
+    border: 1px solid #000000;
+  }
+
+  input.active{
+    text-decoration: line-through;
+  }
+  
