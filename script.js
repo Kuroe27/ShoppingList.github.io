@@ -1,87 +1,119 @@
-const form = document.getElementById('card')
-const input = document.getElementById('submitInput')
-const lit = document.querySelector('.list2')
-const box = document.getElementById('check')
+const createLiContainer = document.querySelector('.add')
+const liMain = document.querySelector(".list2")
+const liSide = document.querySelector(".list")
+const createLiBtn = document.querySelector("#submitInput2");
+const liNameInput = document.querySelector("#submitInput");
 const h2 = document.querySelector("h2");
-const add = document.querySelector(".add");
-const menu = document.querySelector(".list")
-form.addEventListener('submit', addItem)
-const cancel = document.querySelector(".cancel")
-const create = document.querySelector("#submitInput3")
-const newlist = document.querySelector(".newlist")
-const input1 = document.getElementById('newli')
+let activeContainerId = null;
+let containerCount = 0;
+const liContainers = {};
 
-function addItem(e) {
-    e.preventDefault()
-    const newItem = input.value.trim()
+createLiContainer.addEventListener("click", () => {
+    const containerId = `list1-${containerCount++}`;
+    const containerLi = document.createElement("li");
 
-    if (input.value !== ''){
-        var newLi = document.createElement('li')
-        newLi.className = 'items'
-    
-        var ints = document.createElement('input')
-        ints.type = 'text'
-        ints.className = 'lis'
-    
-        var check = document.createElement('input')
-        check.type = 'checkbox'
-        check.className = 'cre'
-        newLi.appendChild(check)
-    
-        var text = document.createElement('span')
-        text.className = 'text'
-        text.appendChild(document.createTextNode(newItem))
-        newLi.appendChild(text)
-        lit.appendChild(newLi)
-        newLi.appendChild(ints)
-    
-        var del = document.createElement('button')
-        del.className = 'remove'
-        del.appendChild(document.createTextNode('X'))
-        newLi.appendChild(del)
-    
-        del.addEventListener('click', removeItem)
-        check.addEventListener('change', changeItem)
-    
-        input.value = ''
-        
-        li = lit.getElementsByTagName('li')
-        licount = li.length
-        console.log(licount);
 
+    
+    containerLi.id = containerId;
+    containerLi.innerHTML = "container name"
+    containerLi.classList.add("list1")
+
+    var dels = document.createElement('button')
+    dels.className = 'remove'
+    dels.appendChild(document.createTextNode('X'))
+    containerLi.appendChild(dels)
+    
+
+
+
+
+    
+
+    containerLi.addEventListener("click", () => {
+        if (activeContainerId) {
+            document.getElementById(activeContainerId).classList.remove("active")
+            liMain.innerHTML = "";
+        }
+
+        activeContainerId = containerId;
+        containerLi.classList.add("active");
         update()
+        if (liContainers[containerId]) {
+            liContainers[containerId].forEach((li) => {
 
-    }else{
-        alert("ads")
-    }
-   
-}
+                liMain.appendChild(li)
+                update()
+            })
+        }
+
+    })
+
+    liSide.appendChild(containerLi)
+    liContainers[containerId] = []
+
+})
 
 
-function changeItem(e) {
-    var text = e.target.parentElement.querySelector('.text')
+createLiBtn.addEventListener("click", (event) => {
 
-    if (this.checked) {
-        
-        text.style.textDecoration = "line-through";
-    } else {
-        text.style.textDecoration = "none";
+    event.preventDefault()
+    const newItem = liNameInput.value.trim()
 
-    }
+    const li = document.createElement("li");
+    li.classList.add("items");
+
+    var checbox = document.createElement('input')
+    checbox.type = 'checkbox'
+    checbox.className = 'cre'
+    li.appendChild(checbox)
+
+    var ints = document.createElement('input')
+    ints.value = liNameInput.value
+    ints.type = 'text'
+    ints.id = 'submitInput'
+    li.appendChild(ints)
+
+
+    var del = document.createElement('button')
+    del.className = 'remove'
+    del.appendChild(document.createTextNode('X'))
+    li.appendChild(del)
+
+    del.addEventListener('click', removeItem)
+    
+
+
+    
+    liMain.appendChild(li)
+
     update()
 
-}
 
-function removeItem(e) {
-    e.preventDefault()
-    var li = e.target.parentElement
-    lit.removeChild(li)
+
+
+
+    liContainers[activeContainerId].push(li);
+
+
+
+});
+function removeItem(e){
+    e.preventDefault;
+    var li = e.target.parentElement;
+    liMain.removeChild(li);
+    
+    for (const containerId in liContainers) {
+        const container = liContainers[containerId];
+        const index = container.indexOf(li);
+        if (index !== -1) {
+            container.splice(index, 1);
+            break;
+        }
+    }
     update()
-
 }
-
 function update(e){
-    const li = lit.getElementsByTagName('li')
+    const li = liMain.getElementsByTagName('li')
     let licount = li.length
 
     // Decrement the value of licount by 1 if a checkbox is checked
@@ -93,44 +125,3 @@ function update(e){
 
     h2.innerHTML = licount + " Items";
 }
-
-// add.addEventListener('click', () => {
-//     var checkbox = document.querySelectorAll('.cre');
-
-//     // Decrement the value of licount by 1 if a checkbox is checked
-//     for (let i = 0; i < checkbox.length; i++) {
-//         if (checkbox[i].checked = false) {
-//             checkbox[i].checked = true;
-//         }
-//     }
-
-
-//   });
-  
-
-add.addEventListener('click', () => {
-   newlist.style.display = 'block'
-
-
-
-})
-
-
-cancel.addEventListener('click', () => {
-    newlist.style.display = 'none'
- 
- 
- 
- })
-
- create.addEventListener('click', () => {
-    
-    const newli = input1.value
-
-    var ul = document.createElement('li')
-    ul.className = "list1"
-    ul.appendChild(document.createTextNode(newli))
-    menu.appendChild(ul)
-
-
-})
