@@ -195,3 +195,8 @@ input[type="checkbox"] {
   .newlist{
     display: none;
   }
+
+
+  .list1.active {
+    background-color: lightblue;
+  }
