@@ -4,6 +4,10 @@ const liSide = document.querySelector(".list")
 const createLiBtn = document.querySelector("#submitInput2");
 const liNameInput = document.querySelector("#submitInput");
 const h2 = document.querySelector("h2");
+const p = document.querySelector("li.active p");
+
+const itemlist = document.querySelector(".itemlist")
+
 let activeContainerId = null;
 let containerCount = 0;
 const liContainers = {};
@@ -13,7 +17,7 @@ createLiContainer.addEventListener("click", () => {
     const containerLi = document.createElement("li");
 
 
-    
+
     containerLi.id = containerId;
     containerLi.innerHTML = "container name"
     containerLi.classList.add("list1")
@@ -22,12 +26,12 @@ createLiContainer.addEventListener("click", () => {
     dels.className = 'remove'
     dels.appendChild(document.createTextNode('X'))
     containerLi.appendChild(dels)
-    
+
+    var liContainerscounts = document.createElement('p')
+    liContainerscounts.appendChild(document.createTextNode('0 Items'))
+    containerLi.appendChild(liContainerscounts)
 
 
-
-
-    
 
     containerLi.addEventListener("click", () => {
         if (activeContainerId) {
@@ -37,6 +41,7 @@ createLiContainer.addEventListener("click", () => {
 
         activeContainerId = containerId;
         containerLi.classList.add("active");
+        
         update()
         if (liContainers[containerId]) {
             liContainers[containerId].forEach((li) => {
@@ -66,6 +71,7 @@ createLiBtn.addEventListener("click", (event) => {
     checbox.type = 'checkbox'
     checbox.className = 'cre'
     li.appendChild(checbox)
+    checbox.addEventListener('change', changeItem)
 
     var ints = document.createElement('input')
     ints.value = liNameInput.value
@@ -80,10 +86,7 @@ createLiBtn.addEventListener("click", (event) => {
     li.appendChild(del)
 
     del.addEventListener('click', removeItem)
-    
 
-
-    
     liMain.appendChild(li)
 
     update()
@@ -97,11 +100,11 @@ createLiBtn.addEventListener("click", (event) => {
 
 
 });
-function removeItem(e){
+function removeItem(e) {
     e.preventDefault;
     var li = e.target.parentElement;
     liMain.removeChild(li);
-    
+
     for (const containerId in liContainers) {
         const container = liContainers[containerId];
         const index = container.indexOf(li);
@@ -110,18 +113,40 @@ function removeItem(e){
             break;
         }
     }
+
+
+
+
     update()
 }
-function update(e){
-    const li = liMain.getElementsByTagName('li')
-    let licount = li.length
+function update() {
+    const li = liMain.getElementsByTagName('li');
+    let licount = li.length;
 
     // Decrement the value of licount by 1 if a checkbox is checked
     for (let i = 0; i < li.length; i++) {
         if (li[i].querySelector('.cre').checked) {
-            licount--
+            licount--;
         }
     }
 
     h2.innerHTML = licount + " Items";
+    const activeLi = document.querySelector("li.active");
+    const activeLiP = activeLi.querySelector("p");
+    activeLiP.innerHTML = licount + " Items";
 }
+
+function changeItem(e) {
+    var ints = e.target.parentElement.querySelector('#submitInput')
+    if (this.checked) {
+        ints.style.textDecoration = "line-through"
+        update()
+    } else {
+        ints.style.textDecoration = "none"
+        update()
+    }
+
+}
+
+
+
